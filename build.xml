@@ -13,6 +13,7 @@
     <path id="allgamer ban system.classpath">
         <pathelement location="bin"/>
         <pathelement location="lib/Permissions.jar"/>
+    	<pathelement location="lib/bukkit.jar"/>
     </path>
     <target name="init">
         <mkdir dir="bin"/>
