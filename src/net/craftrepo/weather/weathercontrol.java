@@ -115,12 +115,13 @@ public class weathercontrol extends JavaPlugin
 			{
 				if (arg.length <= 1)
 				{
-					if (arg[1] != null)
+					//if (arg[0] != null)
 					{
-						target = getServer().getPlayer(arg[1]);
+						//target = getServer().getPlayer(arg[0]);
+						target = player;
 						target.getWorld().strikeLightning(target.getLocation());
 					}
-					else
+					//else
 					{
 						
 					}
