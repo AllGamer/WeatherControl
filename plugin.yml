@@ -1,6 +1,6 @@
 name: WeatherControl
 main: net.craftrepo.WeatherControl.weathercontrol
-version: 0.1
+version: 1.0.0
 commands:
     strikeplayer:
         description: strike a user with lightning
