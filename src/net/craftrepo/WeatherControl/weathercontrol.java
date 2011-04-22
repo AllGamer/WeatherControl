@@ -102,14 +102,10 @@ public class weathercontrol extends JavaPlugin
 			{
 				if (arg.length <= 1)
 				{
-					if (arg[1] != null)
+					if (arg[0] != null)
 					{
-						target = getServer().getPlayer(arg[1]);
+						target = getServer().getPlayer(arg[0]);
 						World world = target.getWorld();
-						world.setStorm(true);
-						world.setThundering(true);
-						world.setWeatherDuration(1);
-						world.setThunderDuration(1);
 						world.strikeLightning(target.getLocation());
 					}
 					else
@@ -134,7 +130,7 @@ public class weathercontrol extends JavaPlugin
 		{
 			if (player.isOp() || weathercontrol.Permissions.has(player, "weathercontrol.lightningstrike"))
 			{
-				if (arg.length == 2)
+				if (arg.length == 1)
 				{
 					World world = player.getWorld();
 					world.setStorm(true);
@@ -158,7 +154,7 @@ public class weathercontrol extends JavaPlugin
 		{
 			if (player.isOp() || weathercontrol.Permissions.has(player, "weathercontrol.lightningstrike"))
 			{
-				if (arg.length == 2)
+				if (arg.length == 1)
 				{
 					World world = player.getWorld();
 					world.setStorm(true);
