@@ -152,7 +152,7 @@ public class weathercontrol extends JavaPlugin
 			return true;
 		}
 		//start a lightning storm
-		else if (command.equalsIgnoreCase("startlightningstorm"))
+		else if (command.equalsIgnoreCase("startstorm"))
 		{
 			if (player.isOp() || weathercontrol.Permissions.has(player, "weathercontrol.lightningstorm"))
 			{
@@ -161,8 +161,11 @@ public class weathercontrol extends JavaPlugin
 					World world = player.getWorld();
 					world.setStorm(true);
 					world.setThundering(true);
-					world.setThunderDuration(Integer.parseInt(arg[0])/50);
-					world.setWeatherDuration(Integer.parseInt(arg[0])/50);
+					//world.setThunderDuration((Integer.parseInt(arg[0])/50)*1000);
+					//world.setWeatherDuration((Integer.parseInt(arg[0])/50)*1000);
+					world.setThunderDuration(Integer.parseInt(arg[0]));
+					world.setWeatherDuration(Integer.parseInt(arg[0]));
+					System.out.println(world.getWeatherDuration());
 				}
 				else
 				{
@@ -185,12 +188,28 @@ public class weathercontrol extends JavaPlugin
 					World world = player.getWorld();
 					world.setStorm(true);
 					world.setThundering(false);
-					world.setWeatherDuration(Integer.parseInt(arg[0])/50);
+					world.setWeatherDuration(Integer.parseInt(arg[0]));
+					//world.setWeatherDuration((Integer.parseInt(arg[0])/50)*1000);
+					System.out.println(world.getWeatherDuration());
 				}
 				else
 				{
-					player.sendMessage("Correct usage is /startstorm [length]");
+					player.sendMessage("Correct usage is /startrain [length]");
 				}
+			}
+			else
+			{
+				player.sendMessage("You don't have access to this command.");
+				log.info(logPrefix + " - " + player.getDisplayName() + " tried to use command " + command + "! Denied access." );
+			}
+		}
+		//stop a rain/snow storm
+		else if (command.equalsIgnoreCase("stoprain"))
+		{
+			if (player.isOp() || weathercontrol.Permissions.has(player, "weathercontrol.rainstorm"))
+			{
+				World world = player.getWorld();
+				world.setStorm(false);
 			}
 			else
 			{

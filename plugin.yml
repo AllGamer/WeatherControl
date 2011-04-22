@@ -26,3 +26,7 @@ commands:
         description: Start a rain/snow storm
         usage: |
                /<command> [duration]
+    stoprain:
+       description: Stop a rain/snow storm
+       usage: |
+               /<command>
