@@ -7,6 +7,9 @@ import java.util.logging.Logger;
 import org.bukkit.block.Block;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Creeper;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.Pig;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginDescriptionFile;
@@ -150,9 +153,9 @@ public class weathercontrol extends JavaPlugin
 			return true;
 		}
 		//start a lightning storm
-		else if (command.equalsIgnoreCase("startstorm"))
+		else if (command.equalsIgnoreCase("startlightningstorm"))
 		{
-			if (player.isOp() || weathercontrol.Permissions.has(player, "weathercontrol.lightningstrike"))
+			if (player.isOp() || weathercontrol.Permissions.has(player, "weathercontrol.lightningstorm"))
 			{
 				if (arg.length == 1)
 				{
@@ -176,7 +179,7 @@ public class weathercontrol extends JavaPlugin
 		//start a rain/snow storm
 		else if (command.equalsIgnoreCase("startrain"))
 		{
-			if (player.isOp() || weathercontrol.Permissions.has(player, "weathercontrol.lightningstrike"))
+			if (player.isOp() || weathercontrol.Permissions.has(player, "weathercontrol.rainstorm"))
 			{
 				if (arg.length == 1)
 				{
@@ -194,6 +197,52 @@ public class weathercontrol extends JavaPlugin
 			{
 				player.sendMessage("You don't have access to this command.");
 				log.info(logPrefix + " - " + player.getDisplayName() + " tried to use command " + command + "! Denied access." );
+			}
+		}
+		else if (command.equalsIgnoreCase("strikecreepers"))
+		{
+			if (player.isOp() || weathercontrol.Permissions.has(player, "weathercontrol.lightning.strikecreeper"))
+			{
+				if (arg.length == 1)
+				{
+					double round = 2 * Integer.parseInt(arg[0]);
+					List<Entity> entities = player.getNearbyEntities(round, round, round);
+					for (Entity e : entities)
+					{
+						if (e instanceof Creeper)
+						{
+							World world = e.getWorld();
+							world.strikeLightning(e.getLocation());
+						}
+					}
+				}
+				else
+				{
+					player.sendMessage("Correct usage is /strikecreepers [radius]");
+				}
+			}
+		}
+		else if (command.equalsIgnoreCase("strikepig"))
+		{
+			if (player.isOp() || weathercontrol.Permissions.has(player, "weathercontrol.lightning.strikepig"))
+			{
+				if (arg.length == 1)
+				{
+					double round = 2 * Integer.parseInt(arg[0]);
+					List<Entity> entities = player.getNearbyEntities(round, round, round);
+					for (Entity e : entities)
+					{
+						if (e instanceof Pig)
+						{
+							World world = e.getWorld();
+							world.strikeLightning(e.getLocation());
+						}
+					}
+				}
+				else
+				{
+					player.sendMessage("Correct usage is /strikecreepers [radius]");
+				}
 			}
 		}
 		return true;

@@ -6,6 +6,14 @@ commands:
         description: strike a user with lightning
         usage: |
                /<command> {target}
+    strikepig:
+        description: strike a pig with lightning
+        usage: |
+               /<command> [radius]
+    strikecreeper:
+        description: strike a pig with lightning
+        usage: |
+               /<command> [radius]
     lightningstrike:
         description: strike down lightning on what ever block you are looking
         usage: |
