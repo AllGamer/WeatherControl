@@ -1,0 +1,16 @@
+name: WeatherControl
+main: net.craftrepo.WeatherControl.weathercontrol
+version: 0.1
+commands:
+    lightningstrike:
+        description: strike a user with lightning
+        usage: |
+               /<command> {target}
+    startstorm:
+        description: Start a lightning storm
+        usage: |
+               /<command> [duration]
+    startrain:
+        description: Start a rain/snow storm
+        usage: |
+               /<command> [duration]
