@@ -109,7 +109,6 @@ public class weathercontrol extends JavaPlugin
 				World world = player.getWorld();
 				Block targetBlock = player.getTargetBlock(null, 20);
 				if (targetBlock!=null){
-					System.out.println(targetBlock.toString());
 					Location strikeloc = targetBlock.getLocation();
 					world.strikeLightning(strikeloc);
 				}else
@@ -162,8 +161,8 @@ public class weathercontrol extends JavaPlugin
 					World world = player.getWorld();
 					world.setStorm(true);
 					world.setThundering(true);
-					world.setThunderDuration(Integer.parseInt(arg[0]));
-					world.setWeatherDuration(Integer.parseInt(arg[0]));
+					world.setThunderDuration(Integer.parseInt(arg[0])/50);
+					world.setWeatherDuration(Integer.parseInt(arg[0])/50);
 				}
 				else
 				{
@@ -186,7 +185,7 @@ public class weathercontrol extends JavaPlugin
 					World world = player.getWorld();
 					world.setStorm(true);
 					world.setThundering(false);
-					world.setWeatherDuration(Integer.parseInt(arg[0]));
+					world.setWeatherDuration(Integer.parseInt(arg[0])/50);
 				}
 				else
 				{
