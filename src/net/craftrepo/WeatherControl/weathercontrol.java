@@ -106,7 +106,6 @@ public class weathercontrol extends JavaPlugin
 				World world = player.getWorld();
 				Block targetBlock = player.getTargetBlock(null, 20);
 				if (targetBlock!=null){
-					System.out.println(targetBlock.toString());
 					Location strikeloc = targetBlock.getLocation();
 					world.strikeLightning(strikeloc);
 				}else
