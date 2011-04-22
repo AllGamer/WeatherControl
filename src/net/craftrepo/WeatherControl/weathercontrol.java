@@ -1,8 +1,10 @@
 package net.craftrepo.WeatherControl;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.logging.Logger;
 
+import org.bukkit.block.Block;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -10,6 +12,7 @@ import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.util.config.Configuration;
+import org.bukkit.Location;
 import org.bukkit.World;
 
 import com.nijiko.permissions.PermissionHandler;
@@ -98,7 +101,28 @@ public class weathercontrol extends JavaPlugin
 		//strike a player with lightning.
 		if (command.equalsIgnoreCase("lightningstrike")) 
 		{
-			if (player.isOp() || weathercontrol.Permissions.has(player, "weathercontrol.lightningstrike"))
+			if (player.isOp() || weathercontrol.Permissions.has(player, "weathercontrol.lightning.lightningstrike"))
+			{
+				World world = player.getWorld();
+				Block targetBlock = player.getTargetBlock(null, 20);
+				if (targetBlock!=null){
+					System.out.println(targetBlock.toString());
+					Location strikeloc = targetBlock.getLocation();
+					world.strikeLightning(strikeloc);
+				}else
+				{
+					player.sendMessage("No block in sight");
+				}
+			}
+			else 
+			{
+				player.sendMessage("You don't have access to this command.");
+				log.info(logPrefix + " - " + player.getDisplayName() + " tried to use command " + command + "! Denied access." );
+			}
+			return true;
+		}else if (command.equalsIgnoreCase("strikeplayer")) 
+		{
+			if (player.isOp() || weathercontrol.Permissions.has(player, "weathercontrol.lightning.strikeplayer"))
 			{
 				if (arg.length <= 1)
 				{

@@ -2,10 +2,14 @@ name: WeatherControl
 main: net.craftrepo.WeatherControl.weathercontrol
 version: 0.1
 commands:
-    lightningstrike:
+    strikeplayer:
         description: strike a user with lightning
         usage: |
                /<command> {target}
+    lightningstrike:
+        description: strike down lightning on what ever block you are looking
+        usage: |
+               /<command>
     startstorm:
         description: Start a lightning storm
         usage: |
