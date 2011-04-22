@@ -27,7 +27,7 @@ public class weathercontrol extends JavaPlugin
 	public HashMap<String, Integer> items = new HashMap<String, Integer>();
 	private final Logger log = Logger.getLogger("Minecraft");
 	public static PermissionHandler Permissions = null;
-	public static String logPrefix = "[CraftBird]";
+	public static String logPrefix = "[WeatherControl]";
 	public weathercontrol plugin;
 	public static Configuration config;
 	public static String id = null;
@@ -161,11 +161,10 @@ public class weathercontrol extends JavaPlugin
 					World world = player.getWorld();
 					world.setStorm(true);
 					world.setThundering(true);
-					//world.setThunderDuration((Integer.parseInt(arg[0])/50)*1000);
-					//world.setWeatherDuration((Integer.parseInt(arg[0])/50)*1000);
-					world.setThunderDuration(Integer.parseInt(arg[0]));
-					world.setWeatherDuration(Integer.parseInt(arg[0]));
-					System.out.println(world.getWeatherDuration());
+					Double dur = Double.parseDouble(arg[0]) / 50;
+					dur = dur * 1000;
+					world.setThunderDuration(dur.intValue());
+					world.setWeatherDuration(dur.intValue());
 				}
 				else
 				{
@@ -188,9 +187,9 @@ public class weathercontrol extends JavaPlugin
 					World world = player.getWorld();
 					world.setStorm(true);
 					world.setThundering(false);
-					world.setWeatherDuration(Integer.parseInt(arg[0]));
-					//world.setWeatherDuration((Integer.parseInt(arg[0])/50)*1000);
-					System.out.println(world.getWeatherDuration());
+					Double dur = Double.parseDouble(arg[0]) / 50;
+					dur = dur * 1000;
+					world.setWeatherDuration(dur.intValue());
 				}
 				else
 				{
