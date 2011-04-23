@@ -111,7 +111,8 @@ public class weathercontrol extends JavaPlugin
 				if (targetBlock!=null){
 					Location strikeloc = targetBlock.getLocation();
 					world.strikeLightning(strikeloc);
-				}else
+				}
+				else
 				{
 					player.sendMessage("No block in sight");
 				}
@@ -258,7 +259,7 @@ public class weathercontrol extends JavaPlugin
 				}
 				else
 				{
-					player.sendMessage("Correct usage is /strikecreepers [radius]");
+					player.sendMessage("Correct usage is /strikepig [radius]");
 				}
 			}
 		}

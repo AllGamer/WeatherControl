@@ -10,7 +10,7 @@ commands:
         description: strike a pig with lightning
         usage: |
                /<command> [radius]
-    strikecreeper:
+    strikecreepers:
         description: strike a pig with lightning
         usage: |
                /<command> [radius]
