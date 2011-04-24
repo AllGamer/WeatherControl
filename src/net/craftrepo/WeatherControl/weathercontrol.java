@@ -101,17 +101,27 @@ public class weathercontrol extends JavaPlugin
 		Player player = (Player) sender;
 		String command = commandArg.getName().toLowerCase();
 		Player target;
+		if (command.equalsIgnoreCase("lightningpick")) 
+		{
+			if (player.isOp() || weathercontrol.Permissions.has(player, "weathercontrol.lightning.pick"))
+			{
+				lightningweapon user = (lightningweapon)sender;
+				user.setWeapon(true);
+			}
+		}
 		//strike a player with lightning.
-		if (command.equalsIgnoreCase("lightningstrike")) 
+		else if (command.equalsIgnoreCase("lightningstrike")) 
 		{
 			if (player.isOp() || weathercontrol.Permissions.has(player, "weathercontrol.lightning.lightningstrike"))
 			{
 				World world = player.getWorld();
 				Block targetBlock = player.getTargetBlock(null, 20);
-				if (targetBlock!=null){
+				if (targetBlock!=null)
+				{
 					Location strikeloc = targetBlock.getLocation();
 					world.strikeLightning(strikeloc);
-				}else
+				}
+				else
 				{
 					player.sendMessage("No block in sight");
 				}
@@ -122,7 +132,8 @@ public class weathercontrol extends JavaPlugin
 				log.info(logPrefix + " - " + player.getDisplayName() + " tried to use command " + command + "! Denied access." );
 			}
 			return true;
-		}else if (command.equalsIgnoreCase("strikeplayer")) 
+		}
+		else if (command.equalsIgnoreCase("strikeplayer")) 
 		{
 			if (player.isOp() || weathercontrol.Permissions.has(player, "weathercontrol.lightning.strikeplayer"))
 			{

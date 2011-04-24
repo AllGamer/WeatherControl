@@ -2,8 +2,12 @@ package net.craftrepo.WeatherControl;
 
 import java.util.logging.Logger;
 
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
+import org.bukkit.event.block.Action;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerListener;
+import org.bukkit.inventory.ItemStack;
 
 /**
  * CraftRepo Bans for Bukkit
@@ -24,7 +28,23 @@ public class weathercontrolPlayerListener extends PlayerListener
 		plugin = instance;
 	}
 
-	//Add rightclick event here
-
+	public void onPlayerInteract(PlayerInteractEvent event)
+	{
+		Action action = event.getAction();
+		if(action == Action.RIGHT_CLICK_BLOCK)
+		{
+			int pickid = 278;
+			ItemStack pick = new ItemStack(pickid);
+			if(event.getItem() == pick)
+			{
+				lightningweapon user = (lightningweapon)event.getPlayer();
+				if (user.getWeapon())
+				{
+					Location strikeloc = event.getClickedBlock().getLocation();
+					user.getWorld().strikeLightning(strikeloc);
+				}
+			}
+		}
+	}
 }
 
