@@ -262,6 +262,29 @@ public class weathercontrol extends JavaPlugin
 				}
 			}
 		}
+		else if (command.equalsIgnoreCase("strikerow"))
+		{
+			if (player.isOp() || weathercontrol.Permissions.has(player, "weathercontrol.lightning.row"))
+			{
+				if (arg.length == 1)
+				{
+					System.out.println("in command strike row");
+					Integer range = Integer.parseInt(arg[0]);
+					LightningRow thread = new LightningRow();
+					thread.setRange(range);
+					thread.setStart(player.getLocation());
+					thread.setCurrent(thread.getStart());
+					thread.setWorld(player.getWorld());
+					thread.setPlugin(this);
+					thread.id=getServer().getScheduler().scheduleSyncRepeatingTask(this, thread, 1, 10);
+					
+				}
+				else
+				{
+					player.sendMessage("Correct usage is /strikecreepers [radius]");
+				}
+			}
+		}
 		return true;
 	}
 }

@@ -30,3 +30,7 @@ commands:
        description: Stop a rain/snow storm
        usage: |
                /<command>
+    Strikerow:
+        description: Stop a rain/snow storm
+        usage: |
+               /<command> [range]
