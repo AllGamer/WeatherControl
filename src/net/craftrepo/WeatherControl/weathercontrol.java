@@ -5,18 +5,22 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import org.bukkit.block.Block;
+import org.bukkit.block.BlockFace;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Creeper;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Pig;
 import org.bukkit.entity.Player;
+import org.bukkit.event.Event;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.util.config.Configuration;
 import org.bukkit.Location;
 import org.bukkit.World;
+
+import apple.laf.CoreUIConstants.Direction;
 
 import com.nijiko.permissions.PermissionHandler;
 import com.nijikokun.bukkit.Permissions.Permissions;
@@ -25,6 +29,7 @@ public class weathercontrol extends JavaPlugin
 {	
 	private final HashMap<Player, Boolean> debugees = new HashMap<Player, Boolean>();
 	public HashMap<String, Integer> items = new HashMap<String, Integer>();
+	public HashMap<Player,Boolean> lightningpick = new HashMap<Player,Boolean>();
 	private final Logger log = Logger.getLogger("Minecraft");
 	public static PermissionHandler Permissions = null;
 	public static String logPrefix = "[WeatherControl]";
@@ -35,6 +40,7 @@ public class weathercontrol extends JavaPlugin
 	public void onEnable() 
 	{
 		setupPermissions();
+		getServer().getPluginManager().registerEvent(Event.Type.PLAYER_INTERACT, new weathercontrolPlayerListener(this), Event.Priority.Normal, this);
 		log.info(logPrefix + " version " + this.getDescription().getVersion() + " enabled!");
 	}
 
@@ -105,8 +111,13 @@ public class weathercontrol extends JavaPlugin
 		{
 			if (player.isOp() || weathercontrol.Permissions.has(player, "weathercontrol.lightning.pick"))
 			{
-				lightningweapon user = (lightningweapon)sender;
-				user.setWeapon(true);
+				//lightningweapon user = (lightningweapon);
+				//user.setWeapon(true);
+				if(lightningpick.containsKey(player))
+					lightningpick.remove(player);
+				else
+					lightningpick.put(player, true);
+				System.out.println(lightningpick.containsKey(player));
 			}
 		}
 		//strike a player with lightning.
@@ -277,22 +288,37 @@ public class weathercontrol extends JavaPlugin
 		{
 			if (player.isOp() || weathercontrol.Permissions.has(player, "weathercontrol.lightning.row"))
 			{
-				if (arg.length == 1)
+				if (arg.length == 2)
 				{
-					System.out.println("in command strike row");
-					Integer range = Integer.parseInt(arg[0]);
-					LightningRow thread = new LightningRow();
-					thread.setRange(range);
-					thread.setStart(player.getLocation());
-					thread.setCurrent(thread.getStart());
-					thread.setWorld(player.getWorld());
-					thread.setPlugin(this);
-					thread.id=getServer().getScheduler().scheduleSyncRepeatingTask(this, thread, 1, 10);
-					
+					World world = player.getWorld();
+					Block targetBlock = player.getTargetBlock(null, 20);
+					if (targetBlock!=null)
+					{
+						LightningRow thread = new LightningRow();
+						Location strikeloc = targetBlock.getLocation();
+						Integer range = Integer.parseInt(arg[0]);
+						thread.face=BlockFace.valueOf(arg[1].toUpperCase());
+						thread.setRange(range);
+						thread.setStart(strikeloc);
+						thread.setCurrent(thread.getStart());
+						thread.setWorld(player.getWorld());
+						thread.setPlugin(this);
+						thread.id=getServer().getScheduler().scheduleSyncRepeatingTask(this, thread, 1, 5);
+
+					}
+					else
+					{
+						player.sendMessage("No block in sight");
+					}					
 				}
 				else
 				{
-					player.sendMessage("Correct usage is /strikecreepers [radius]");
+					player.sendMessage("Correct usage is /strikerow [distance] [Direction]");
+					player.sendMessage("Directions:");
+					for(BlockFace s : BlockFace.values())
+					{
+						player.sendMessage(s.toString());
+					}
 				}
 			}
 		}

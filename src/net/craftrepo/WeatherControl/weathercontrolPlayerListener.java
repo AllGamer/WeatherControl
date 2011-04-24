@@ -3,6 +3,7 @@ package net.craftrepo.WeatherControl;
 import java.util.logging.Logger;
 
 import org.bukkit.Location;
+import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -31,17 +32,26 @@ public class weathercontrolPlayerListener extends PlayerListener
 	public void onPlayerInteract(PlayerInteractEvent event)
 	{
 		Action action = event.getAction();
-		if(action == Action.RIGHT_CLICK_BLOCK)
+		if(action == Action.RIGHT_CLICK_AIR||action == Action.RIGHT_CLICK_BLOCK)
 		{
 			int pickid = 278;
-			ItemStack pick = new ItemStack(pickid);
-			if(event.getItem() == pick)
+			if(event.getItem()!=null)
+			if(event.getItem().getTypeId()==pickid)
 			{
-				lightningweapon user = (lightningweapon)event.getPlayer();
-				if (user.getWeapon())
+				if (plugin.lightningpick.containsKey(event.getPlayer()))
 				{
-					Location strikeloc = event.getClickedBlock().getLocation();
-					user.getWorld().strikeLightning(strikeloc);
+					Block targetBlock = event.getPlayer().getTargetBlock(null, 35);
+					if (targetBlock!=null)
+					{
+						Location strikeloc = targetBlock.getLocation();
+						event.getPlayer().getWorld().strikeLightning(strikeloc);
+					}
+					else
+					{
+						event.getPlayer().sendMessage("No block in sight");
+					}
+					//Location strikeloc = event.getClickedBlock().getLocation();
+					//user.getWorld().strikeLightning(strikeloc);
 				}
 			}
 		}
