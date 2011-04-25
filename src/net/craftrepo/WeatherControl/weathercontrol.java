@@ -20,8 +20,6 @@ import org.bukkit.util.config.Configuration;
 import org.bukkit.Location;
 import org.bukkit.World;
 
-import apple.laf.CoreUIConstants.Direction;
-
 import com.nijiko.permissions.PermissionHandler;
 import com.nijikokun.bukkit.Permissions.Permissions;
 
@@ -118,21 +116,21 @@ public class weathercontrol extends JavaPlugin
 				else
 					lightningpick.put(player, true);
 				System.out.println(lightningpick.containsKey(player));
+				lightningweapon user = (lightningweapon)getServer().getPlayer(player.toString());
+				user.setWeapon(true);
 			}
 		}
 		//strike a player with lightning.
-		else if (command.equalsIgnoreCase("lightningstrike")) 
+		if (command.equalsIgnoreCase("lightningstrike")) 
 		{
 			if (player.isOp() || weathercontrol.Permissions.has(player, "weathercontrol.lightning.lightningstrike"))
 			{
 				World world = player.getWorld();
 				Block targetBlock = player.getTargetBlock(null, 20);
-				if (targetBlock!=null)
-				{
+				if (targetBlock!=null){
 					Location strikeloc = targetBlock.getLocation();
 					world.strikeLightning(strikeloc);
-				}
-				else
+				}else
 				{
 					player.sendMessage("No block in sight");
 				}
@@ -143,8 +141,7 @@ public class weathercontrol extends JavaPlugin
 				log.info(logPrefix + " - " + player.getDisplayName() + " tried to use command " + command + "! Denied access." );
 			}
 			return true;
-		}
-		else if (command.equalsIgnoreCase("strikeplayer")) 
+		}else if (command.equalsIgnoreCase("strikeplayer")) 
 		{
 			if (player.isOp() || weathercontrol.Permissions.has(player, "weathercontrol.lightning.strikeplayer"))
 			{
@@ -290,6 +287,7 @@ public class weathercontrol extends JavaPlugin
 			{
 				if (arg.length == 2)
 				{
+					@SuppressWarnings("unused")
 					World world = player.getWorld();
 					Block targetBlock = player.getTargetBlock(null, 20);
 					if (targetBlock!=null)
