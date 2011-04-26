@@ -26,26 +26,29 @@ public class weathercontrolPlayerListener extends PlayerListener
 
 	public void onPlayerInteract(PlayerInteractEvent event)
 	{
-		Action action = event.getAction();
-		if(action == Action.RIGHT_CLICK_AIR||action == Action.RIGHT_CLICK_BLOCK)
+		if(!event.isCancelled())
 		{
-			int pickid = 278;
-			if(event.getItem()!=null)
-			if(event.getItem().getTypeId()==pickid)
+			Action action = event.getAction();
+			if(action == Action.RIGHT_CLICK_AIR||action == Action.RIGHT_CLICK_BLOCK)
 			{
-				if (plugin.lightningpick.containsKey(event.getPlayer()))
-				{
-					Block targetBlock = event.getPlayer().getTargetBlock(null, 35);
-					if (targetBlock!=null)
+				int pickid = 278;
+				if(event.getItem()!=null)
+					if(event.getItem().getTypeId()==pickid)
 					{
-						Location strikeloc = targetBlock.getLocation();
-						event.getPlayer().getWorld().strikeLightning(strikeloc);
+						if (plugin.lightningpick.containsKey(event.getPlayer()))
+						{
+							Block targetBlock = event.getPlayer().getTargetBlock(null, 35);
+							if (targetBlock!=null)
+							{
+								Location strikeloc = targetBlock.getLocation();
+								event.getPlayer().getWorld().strikeLightning(strikeloc);
+							}
+							else
+							{
+								event.getPlayer().sendMessage("No block in sight");
+							}
+						}
 					}
-					else
-					{
-						event.getPlayer().sendMessage("No block in sight");
-					}
-				}
 			}
 		}
 	}
