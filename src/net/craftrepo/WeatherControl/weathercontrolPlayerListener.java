@@ -1,7 +1,5 @@
 package net.craftrepo.WeatherControl;
 
-import java.util.logging.Logger;
-
 import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.event.block.Action;
@@ -19,7 +17,7 @@ import org.bukkit.event.player.PlayerListener;
 public class weathercontrolPlayerListener extends PlayerListener 
 {
 	private final weathercontrol plugin;
-	private final Logger log = Logger.getLogger("Minecraft");
+	//private final Logger log = Logger.getLogger("Minecraft");
 
 	public weathercontrolPlayerListener(weathercontrol instance) 
 	{
@@ -47,8 +45,6 @@ public class weathercontrolPlayerListener extends PlayerListener
 					{
 						event.getPlayer().sendMessage("No block in sight");
 					}
-					//Location strikeloc = event.getClickedBlock().getLocation();
-					//user.getWorld().strikeLightning(strikeloc);
 				}
 			}
 		}
