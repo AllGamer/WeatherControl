@@ -20,8 +20,6 @@ import org.bukkit.util.config.Configuration;
 import org.bukkit.Location;
 import org.bukkit.World;
 
-import apple.laf.CoreUIConstants.Direction;
-
 import com.nijiko.permissions.PermissionHandler;
 import com.nijikokun.bukkit.Permissions.Permissions;
 
@@ -301,7 +299,7 @@ public class weathercontrol extends JavaPlugin
 						thread.setRange(range);
 						thread.setStart(strikeloc);
 						thread.setCurrent(thread.getStart());
-						thread.setWorld(player.getWorld());
+						thread.setWorld(world);
 						thread.setPlugin(this);
 						thread.id=getServer().getScheduler().scheduleSyncRepeatingTask(this, thread, 1, 5);
 

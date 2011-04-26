@@ -32,8 +32,7 @@ commands:
                /<command> [duration]
     stoprain:
        description: Stop a rain/snow storm
-       alias:
-           - stopstorm
+       aliases: ['stopstorm']
        usage: |
                /<command>
     Strikerow:

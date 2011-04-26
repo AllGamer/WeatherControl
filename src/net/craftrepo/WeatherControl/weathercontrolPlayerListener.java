@@ -4,11 +4,9 @@ import java.util.logging.Logger;
 
 import org.bukkit.Location;
 import org.bukkit.block.Block;
-import org.bukkit.entity.Player;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerListener;
-import org.bukkit.inventory.ItemStack;
 
 /**
  * CraftRepo Bans for Bukkit
@@ -20,7 +18,6 @@ import org.bukkit.inventory.ItemStack;
 
 public class weathercontrolPlayerListener extends PlayerListener 
 {
-	@SuppressWarnings("unused")
 	private final weathercontrol plugin;
 	private final Logger log = Logger.getLogger("Minecraft");
 

@@ -3,7 +3,6 @@ package net.craftrepo.WeatherControl;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.block.BlockFace;
-import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class LightningRow implements Runnable {
