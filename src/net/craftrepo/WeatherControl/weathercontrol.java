@@ -109,15 +109,11 @@ public class weathercontrol extends JavaPlugin
 		{
 			if (player.isOp() || weathercontrol.Permissions.has(player, "weathercontrol.lightning.pick"))
 			{
-				//lightningweapon user = (lightningweapon);
-				//user.setWeapon(true);
 				if(lightningpick.containsKey(player))
 					lightningpick.remove(player);
 				else
 					lightningpick.put(player, true);
 				System.out.println(lightningpick.containsKey(player));
-				lightningweapon user = (lightningweapon)getServer().getPlayer(player.toString());
-				user.setWeapon(true);
 			}
 		}
 		//strike a player with lightning.
