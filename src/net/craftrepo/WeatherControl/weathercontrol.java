@@ -82,8 +82,7 @@ public class weathercontrol extends JavaPlugin
 			}
 			else 
 			{
-				log.severe(logPrefix + " version " + pdfFile.getVersion() + " not enabled. Permissions not detected.");
-				this.getServer().getPluginManager().disablePlugin(this);
+				log.severe(logPrefix + " Permissions not detected. Using OP based access.");
 			}
 		}
 	}
@@ -283,7 +282,6 @@ public class weathercontrol extends JavaPlugin
 			{
 				if (arg.length == 2)
 				{
-					@SuppressWarnings("unused")
 					World world = player.getWorld();
 					Block targetBlock = player.getTargetBlock(null, 20);
 					if (targetBlock!=null)
