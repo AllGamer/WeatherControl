@@ -109,9 +109,15 @@ public class weathercontrol extends JavaPlugin
 			if (player.isOp() || weathercontrol.Permissions.has(player, "weathercontrol.lightning.pick"))
 			{
 				if(lightningpick.containsKey(player))
+				{
 					lightningpick.remove(player);
+					player.sendMessage(logPrefix + " Lightningpick is now off!");
+				}
 				else
+				{
 					lightningpick.put(player, true);
+					player.sendMessage(logPrefix + " Lightningpick is now on!");
+				}
 				System.out.println(lightningpick.containsKey(player));
 			}
 		}
