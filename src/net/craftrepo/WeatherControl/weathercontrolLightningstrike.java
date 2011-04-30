@@ -34,6 +34,8 @@ public class weathercontrolLightningstrike extends WeatherListener {
 					{
 						weight+=2;
 					}
+					//TODO Make it scale so that if it's further away from the original source it has less weight
+					//TODO Add more "Targets" to the lightning
 					if(weight>highestWeight)
 					{
 						highestWeight=weight;
@@ -49,6 +51,7 @@ public class weathercontrolLightningstrike extends WeatherListener {
 			{
 				Random nr= new Random();
 				int index = nr.nextInt(highesLocations.size());
+				//TODO Power redstone if close to lightning strike area
 				event.getLightning().teleport(highesLocations.get(index));
 				plugin.lightning.remove(event.getLightning());
 			}
