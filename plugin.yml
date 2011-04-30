@@ -1,6 +1,6 @@
 name: WeatherControl
 main: net.craftrepo.WeatherControl.weathercontrol
-version: 1.0.0
+version: 1.1.0
 commands:
     lightningpick:
         description: toggle your pick to start lightning
@@ -15,7 +15,7 @@ commands:
         usage: |
                /<command> [radius]
     strikecreeper:
-        description: strike a pig with lightning
+        description: strike a creeper with lightning
         usage: |
                /<command> [radius]
     lightningstrike:
@@ -35,7 +35,7 @@ commands:
        aliases: ['stopstorm']
        usage: |
                /<command>
-    Strikerow:
+    strikerow:
         description: Stop a rain/snow storm
         usage: |
-               /<command> [range]
+               /<command> [range] [direction]

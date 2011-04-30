@@ -82,8 +82,7 @@ public class weathercontrol extends JavaPlugin
 			}
 			else 
 			{
-				log.severe(logPrefix + " version " + pdfFile.getVersion() + " not enabled. Permissions not detected.");
-				this.getServer().getPluginManager().disablePlugin(this);
+				log.severe(logPrefix + " Permissions not detected. Using OP based access.");
 			}
 		}
 	}
@@ -110,9 +109,15 @@ public class weathercontrol extends JavaPlugin
 			if (player.isOp() || weathercontrol.Permissions.has(player, "weathercontrol.lightning.pick"))
 			{
 				if(lightningpick.containsKey(player))
+				{
 					lightningpick.remove(player);
+					player.sendMessage(logPrefix + " Lightningpick is now off!");
+				}
 				else
+				{
 					lightningpick.put(player, true);
+					player.sendMessage(logPrefix + " Lightningpick is now on!");
+				}
 				System.out.println(lightningpick.containsKey(player));
 			}
 		}
@@ -126,7 +131,8 @@ public class weathercontrol extends JavaPlugin
 				if (targetBlock!=null){
 					Location strikeloc = targetBlock.getLocation();
 					world.strikeLightning(strikeloc);
-				}else
+				}
+				else
 				{
 					player.sendMessage("No block in sight");
 				}
@@ -273,7 +279,7 @@ public class weathercontrol extends JavaPlugin
 				}
 				else
 				{
-					player.sendMessage("Correct usage is /strikecreepers [radius]");
+					player.sendMessage("Correct usage is /strikepig [radius]");
 				}
 			}
 		}
@@ -283,7 +289,6 @@ public class weathercontrol extends JavaPlugin
 			{
 				if (arg.length == 2)
 				{
-					@SuppressWarnings("unused")
 					World world = player.getWorld();
 					Block targetBlock = player.getTargetBlock(null, 20);
 					if (targetBlock!=null)
