@@ -1,7 +1,9 @@
 package net.craftrepo.WeatherControl;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.logging.Logger;
 
 import org.bukkit.block.Block;
@@ -28,6 +30,7 @@ public class weathercontrol extends JavaPlugin
 	private final HashMap<Player, Boolean> debugees = new HashMap<Player, Boolean>();
 	public HashMap<String, Integer> items = new HashMap<String, Integer>();
 	public HashMap<Player,Boolean> lightningpick = new HashMap<Player,Boolean>();
+	public Set<Location> lightning = new HashSet<Location>();
 	private final Logger log = Logger.getLogger("Minecraft");
 	public static PermissionHandler Permissions = null;
 	public static String logPrefix = "[WeatherControl]";
@@ -38,7 +41,9 @@ public class weathercontrol extends JavaPlugin
 	public void onEnable() 
 	{
 		setupPermissions();
-		getServer().getPluginManager().registerEvent(Event.Type.PLAYER_INTERACT, new weathercontrolPlayerListener(this), Event.Priority.Normal, this);
+		getServer().getPluginManager().registerEvent(Event.Type.PLAYER_INTERACT, new weathercontrolPlayerListener(this), Event.Priority.Low, this);
+		getServer().getPluginManager().registerEvent(Event.Type.ENTITY_DAMAGE, new weathercontrolEntityDamage(this), Event.Priority.Low, this);
+		getServer().getPluginManager().registerEvent(Event.Type.LIGHTNING_STRIKE, new weathercontrolLightningstrike(this), Event.Priority.Normal, this);
 		log.info(logPrefix + " version " + this.getDescription().getVersion() + " enabled!");
 	}
 
@@ -130,6 +135,7 @@ public class weathercontrol extends JavaPlugin
 				Block targetBlock = player.getTargetBlock(null, 20);
 				if (targetBlock!=null){
 					Location strikeloc = targetBlock.getLocation();
+					lightning.add(strikeloc);
 					world.strikeLightning(strikeloc);
 				}
 				else
@@ -153,6 +159,7 @@ public class weathercontrol extends JavaPlugin
 					{
 						target = getServer().getPlayer(arg[0]);
 						World world = target.getWorld();
+						lightning.add(target.getLocation());
 						world.strikeLightning(target.getLocation());
 					}
 					else
@@ -250,7 +257,8 @@ public class weathercontrol extends JavaPlugin
 						if (e instanceof Creeper)
 						{
 							World world = e.getWorld();
-							world.strikeLightning(e.getLocation());
+							lightning.add(e.getLocation());
+							world.strikeLightning(e.getLocation()).getEntityId();
 						}
 					}
 				}
@@ -273,7 +281,8 @@ public class weathercontrol extends JavaPlugin
 						if (e instanceof Pig)
 						{
 							World world = e.getWorld();
-							world.strikeLightning(e.getLocation());
+							lightning.add(e.getLocation());
+							world.strikeLightning(e.getLocation()).getEntityId();
 						}
 					}
 				}
