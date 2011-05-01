@@ -53,8 +53,11 @@ public class weathercontrolLightningstrike extends WeatherListener {
 				int index = nr.nextInt(highesLocations.size());
 				//TODO Power redstone if close to lightning strike area
 				event.getLightning().teleport(highesLocations.get(index));
-				plugin.lightning.remove(event.getLightning());
 			}
+		}
+		else
+		{
+		plugin.lightning.remove(event.getLightning());
 		}
 		super.onLightningStrike(event);
 	}
