@@ -32,6 +32,12 @@ public class weathercontrolLightningstrike extends WeatherListener {
 					int weight = height;
 					if(w.getBlockTypeIdAt(x, height-1, z)==42)
 					{
+						weight+=3;
+					}else if(w.getBlockTypeIdAt(x, height-1, z)==66)
+					{
+						weight+=1;
+					}else if(w.getBlockTypeIdAt(x, height-1, z)==27||w.getBlockTypeIdAt(x, height-1, z)==41)
+					{
 						weight+=2;
 					}
 					//TODO Make it scale so that if it's further away from the original source it has less weight

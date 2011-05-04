@@ -36,6 +36,6 @@ commands:
        usage: |
                /<command>
     strikerow:
-        description: Stop a rain/snow storm
+        description: Strike a row of lightning in the diraction you are facing strting form the block you are looking at.
         usage: |
-               /<command> [range] [direction]
+               /<command> [range]

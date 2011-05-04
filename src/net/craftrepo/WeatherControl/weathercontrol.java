@@ -18,6 +18,7 @@ import org.bukkit.event.Event;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.util.Vector;
 import org.bukkit.util.config.Configuration;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -296,7 +297,7 @@ public class weathercontrol extends JavaPlugin
 		{
 			if (player.isOp() || weathercontrol.Permissions.has(player, "weathercontrol.lightning.row"))
 			{
-				if (arg.length == 2)
+				if (arg.length >= 1)
 				{
 					World world = player.getWorld();
 					Block targetBlock = player.getTargetBlock(null, 20);
@@ -305,7 +306,27 @@ public class weathercontrol extends JavaPlugin
 						LightningRow thread = new LightningRow();
 						Location strikeloc = targetBlock.getLocation();
 						Integer range = Integer.parseInt(arg[0]);
-						thread.face=BlockFace.valueOf(arg[1].toUpperCase());
+				        double rot = (player.getLocation().getYaw() - 90) % 360;
+				        if (rot < 0) {
+				            rot += 360.0;
+				        }
+						PlayerDirection d = getDirection(rot);
+						if(d==PlayerDirection.SOUTH)
+							thread.face=BlockFace.SOUTH;
+						else if(d==PlayerDirection.SOUTH_WEST)
+							thread.face=BlockFace.SOUTH_WEST;
+						else if(d==PlayerDirection.SOUTH_EAST)
+							thread.face=BlockFace.SOUTH_EAST;
+						else if(d==PlayerDirection.NORTH)
+							thread.face=BlockFace.NORTH;
+						else if(d==PlayerDirection.NORTH_WEST)
+							thread.face=BlockFace.NORTH_WEST;
+						else if(d==PlayerDirection.NORTH_EAST)
+							thread.face=BlockFace.NORTH_EAST;
+						else if(d==PlayerDirection.EAST)
+							thread.face=BlockFace.EAST;
+						else if(d==PlayerDirection.WEST)
+							thread.face=BlockFace.WEST;
 						thread.setRange(range);
 						thread.setStart(strikeloc);
 						thread.setCurrent(thread.getStart());
@@ -321,15 +342,76 @@ public class weathercontrol extends JavaPlugin
 				}
 				else
 				{
-					player.sendMessage("Correct usage is /strikerow [distance] [Direction]");
-					player.sendMessage("Directions:");
-					for(BlockFace s : BlockFace.values())
-					{
-						player.sendMessage(s.toString());
-					}
+					player.sendMessage("Correct usage is /strikerow [distance]");
 				}
 			}
 		}
 		return true;
 	}
+
+    /**
+     * Returns direction according to rotation. May return null.
+     * Respect goes to sk89q <http://www.sk89q.com> for figuring this out
+     * @param rot
+     * @return
+     */
+    private static PlayerDirection getDirection(double rot) {
+        if (0 <= rot && rot < 22.5) {
+            return PlayerDirection.NORTH;
+        } else if (22.5 <= rot && rot < 67.5) {
+            return PlayerDirection.NORTH_EAST;
+        } else if (67.5 <= rot && rot < 112.5) {
+            return PlayerDirection.EAST;
+        } else if (112.5 <= rot && rot < 157.5) {
+            return PlayerDirection.SOUTH_EAST;
+        } else if (157.5 <= rot && rot < 202.5) {
+            return PlayerDirection.SOUTH;
+        } else if (202.5 <= rot && rot < 247.5) {
+            return PlayerDirection.SOUTH_WEST;
+        } else if (247.5 <= rot && rot < 292.5) {
+            return PlayerDirection.WEST;
+        } else if (292.5 <= rot && rot < 337.5) {
+            return PlayerDirection.NORTH_WEST;
+        } else if (337.5 <= rot && rot < 360.0) {
+            return PlayerDirection.NORTH;
+        } else {
+            return null;
+        }
+    }
+    /**
+     * Direction.
+     * 
+     */
+    public enum PlayerDirection {
+        NORTH(new Vector(-1, 0, 0), new Vector(0, 0, 1), true),
+        NORTH_EAST((new Vector(-1, 0, -1)).normalize(), (new Vector(-1, 0, 1)).normalize(), false),
+        EAST(new Vector(0, 0, -1), new Vector(-1, 0, 0), true),
+        SOUTH_EAST((new Vector(1, 0, -1)).normalize(), (new Vector(-1, 0, -1)).normalize(), false),
+        SOUTH(new Vector(1, 0, 0), new Vector(0, 0, -1), true),
+        SOUTH_WEST((new Vector(1, 0, 1)).normalize(), (new Vector(1, 0, -1)).normalize(), false),
+        WEST(new Vector(0, 0, 1), new Vector(1, 0, 0), true),
+        NORTH_WEST((new Vector(-1, 0, 1)).normalize(), (new Vector(1, 0, 1)).normalize(), false);
+        
+        private Vector dir;
+        private Vector leftDir;
+        private boolean isOrthogonal;
+        
+        PlayerDirection(Vector vec, Vector leftDir, boolean isOrthogonal) {
+            this.dir = vec;
+            this.leftDir = leftDir;
+            this.isOrthogonal = isOrthogonal;
+        }
+        
+        public Vector vector() {
+            return dir;
+        }
+        
+        public Vector leftVector() {
+            return leftDir;
+        }
+        
+        public boolean isOrthogonal() {
+            return isOrthogonal;
+        }
+    }
 }
