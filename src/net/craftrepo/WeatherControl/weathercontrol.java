@@ -1,10 +1,13 @@
 package net.craftrepo.WeatherControl;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.logging.Logger;
+
+import net.craftrepo.Gimme.gimmeConfiguration;
 
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
@@ -36,12 +39,21 @@ public class weathercontrol extends JavaPlugin
 	public static PermissionHandler Permissions = null;
 	public static String logPrefix = "[WeatherControl]";
 	public weathercontrol plugin;
+	private weathercontrolConfiguration confSetup;
 	public static Configuration config;
 	public static String id = null;
 
+	public void configInit()
+	{
+		getDataFolder().mkdirs();
+		config = new Configuration(new File(this.getDataFolder(), "config.yml"));
+		confSetup = new weathercontrolConfiguration(this.getDataFolder(), this);
+	}
+	
 	public void onEnable() 
 	{
 		setupPermissions();
+		configInit();
 		getServer().getPluginManager().registerEvent(Event.Type.PLAYER_INTERACT, new weathercontrolPlayerListener(this), Event.Priority.Low, this);
 		getServer().getPluginManager().registerEvent(Event.Type.ENTITY_DAMAGE, new weathercontrolEntityDamage(this), Event.Priority.Low, this);
 		getServer().getPluginManager().registerEvent(Event.Type.LIGHTNING_STRIKE, new weathercontrolLightningstrike(this), Event.Priority.Normal, this);
