@@ -6,6 +6,7 @@ import org.bukkit.event.entity.EntityListener;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 
 public class weathercontrolEntityDamage extends EntityListener {
+	@SuppressWarnings("unused")
 	private static weathercontrol plugin;
 	public weathercontrolEntityDamage(weathercontrol weathercontrol) {
 		plugin=weathercontrol;

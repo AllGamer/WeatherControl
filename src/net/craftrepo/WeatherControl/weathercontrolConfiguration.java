@@ -9,7 +9,7 @@ import java.util.logging.Logger;
 import org.bukkit.plugin.Plugin;
 
 /**
- * CraftRepo Bans for Bukkit
+ * CraftRepo weathercontrol for Bukkit
  * @author AllGamer
  * 
  * Copyright 2011 AllGamer, LLC.
@@ -46,8 +46,11 @@ public class weathercontrolConfiguration
 
 					out.write("#WeatherControl Configuration\n");
 					out.write("#Fill this in with lines for the default config file. Make sure to add the newline...\n");
-					
-						
+					out.write("BlockWeight:\n");
+					out.write(" - 42 3\n");
+					out.write(" - 66 1\n");
+					out.write(" - 27 2\n");
+					out.write(" - 41 2\n");
 					out.close();
 					fstream.close();
 					log.info(logPrefix + " Make sure to edit your config file!");
@@ -59,7 +62,8 @@ public class weathercontrolConfiguration
 					log.severe(logPrefix + " " + ex);
 					this.plugin.getServer().getPluginManager().disablePlugin((Plugin) this);
 				}
-			}
 		}
+		
 	}
+}
 

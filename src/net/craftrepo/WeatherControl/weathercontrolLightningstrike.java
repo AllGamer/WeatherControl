@@ -30,7 +30,9 @@ public class weathercontrolLightningstrike extends WeatherListener {
 				{
 					int height = w.getHighestBlockYAt(x, z);
 					int weight = height;
-					if(w.getBlockTypeIdAt(x, height-1, z)==42)
+					if(plugin.idweight.containsKey(w.getBlockTypeIdAt(x, height-1, z)))
+						weight+=plugin.idweight.get(w.getBlockTypeIdAt(x, height-1, z));
+					/*if(w.getBlockTypeIdAt(x, height-1, z)==42)
 					{
 						weight+=3;
 					}else if(w.getBlockTypeIdAt(x, height-1, z)==66)
@@ -39,7 +41,7 @@ public class weathercontrolLightningstrike extends WeatherListener {
 					}else if(w.getBlockTypeIdAt(x, height-1, z)==27||w.getBlockTypeIdAt(x, height-1, z)==41)
 					{
 						weight+=2;
-					}
+					}*/
 					//TODO Make it scale so that if it's further away from the original source it has less weight
 					//TODO Add more "Targets" to the lightning
 					if(weight>highestWeight)
