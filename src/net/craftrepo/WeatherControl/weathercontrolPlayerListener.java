@@ -1,5 +1,7 @@
 package net.craftrepo.WeatherControl;
 
+import java.util.logging.Logger;
+
 import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.event.block.Action;
@@ -17,7 +19,7 @@ import org.bukkit.event.player.PlayerListener;
 public class weathercontrolPlayerListener extends PlayerListener 
 {
 	private final weathercontrol plugin;
-	//private final Logger log = Logger.getLogger("Minecraft");
+	private final Logger log = Logger.getLogger("Minecraft");
 
 	public weathercontrolPlayerListener(weathercontrol instance) 
 	{
@@ -30,13 +32,25 @@ public class weathercontrolPlayerListener extends PlayerListener
 		//if(!event.isCancelled())
 		{
 			Action action = event.getAction();
-			if(action == Action.RIGHT_CLICK_AIR||action == Action.RIGHT_CLICK_BLOCK)
+			if(action == Action.RIGHT_CLICK_AIR || action == Action.RIGHT_CLICK_BLOCK)
 			{
-				int pickid = 278;
-				if(event.getItem()!=null)
-					if(event.getItem().getTypeId()==pickid)
+				int wandid = 278;
+				weathercontrol.config.load();
+				if (weathercontrol.config.getProperty("WandID") != null)
+				{
+					try
 					{
-						if (plugin.lightningpick.containsKey(event.getPlayer()))
+						wandid = Integer.parseInt(weathercontrol.config.getProperty("WandID").toString());
+					}
+					catch (NumberFormatException e)
+					{
+						log.severe(weathercontrol.logPrefix + " Please fix your WandID int plugins/WeatherControl/config.yml");
+					}
+				}
+				if(event.getItem()!=null)
+					if(event.getItem().getTypeId() == wandid)
+					{
+						if (plugin.lightningwand.containsKey(event.getPlayer()))
 						{
 							Block targetBlock = event.getPlayer().getTargetBlock(null, 35);
 							if (targetBlock!=null)

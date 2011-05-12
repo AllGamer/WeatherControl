@@ -31,7 +31,7 @@ public class weathercontrol extends JavaPlugin
 {	
 	private final HashMap<Player, Boolean> debugees = new HashMap<Player, Boolean>();
 	public HashMap<String, Integer> items = new HashMap<String, Integer>();
-	public HashMap<Player,Boolean> lightningpick = new HashMap<Player,Boolean>();
+	public HashMap<Player,Boolean> lightningwand = new HashMap<Player,Boolean>();
 	public Set<Location> lightning = new HashSet<Location>();
 	private final Logger log = Logger.getLogger("Minecraft");
 	public static PermissionHandler Permissions = null;
@@ -132,25 +132,25 @@ public class weathercontrol extends JavaPlugin
 		Player player = (Player) sender;
 		String command = commandArg.getName().toLowerCase();
 		Player target;
-		if (command.equalsIgnoreCase("lightningpick")) 
+		if (command.equalsIgnoreCase("lightningwand")) 
 		{
-			if (player.isOp() || weathercontrol.Permissions.has(player, "weathercontrol.lightning.pick"))
+			if (player.isOp() || weathercontrol.Permissions.has(player, "weathercontrol.lightning.wand"))
 			{
-				if(lightningpick.containsKey(player))
+				if(lightningwand.containsKey(player))
 				{
-					lightningpick.remove(player);
-					player.sendMessage(logPrefix + " Lightningpick is now off!");
+					lightningwand.remove(player);
+					player.sendMessage(logPrefix + " Lightningwand is now off!");
 				}
 				else
 				{
-					lightningpick.put(player, true);
-					player.sendMessage(logPrefix + " Lightningpick is now on!");
+					lightningwand.put(player, true);
+					player.sendMessage(logPrefix + " Lightningwand is now on!");
 				}
-				System.out.println(lightningpick.containsKey(player));
+				System.out.println(lightningwand.containsKey(player));
 			}
 		}
 		//strike a player with lightning.
-		if (command.equalsIgnoreCase("lightningstrike")) 
+		else if (command.equalsIgnoreCase("lightningstrike")) 
 		{
 			if (player.isOp() || weathercontrol.Permissions.has(player, "weathercontrol.lightning.lightningstrike"))
 			{
@@ -172,7 +172,8 @@ public class weathercontrol extends JavaPlugin
 				log.info(logPrefix + " - " + player.getDisplayName() + " tried to use command " + command + "! Denied access." );
 			}
 			return true;
-		}else if (command.equalsIgnoreCase("strikeplayer")) 
+		}
+		else if (command.equalsIgnoreCase("strikeplayer")) 
 		{
 			if (player.isOp() || weathercontrol.Permissions.has(player, "weathercontrol.lightning.strikeplayer"))
 			{
@@ -377,26 +378,46 @@ public class weathercontrol extends JavaPlugin
      * @param rot
      * @return
      */
-    private static PlayerDirection getDirection(double rot) {
-        if (0 <= rot && rot < 22.5) {
+    private static PlayerDirection getDirection(double rot)
+    {
+        if (0 <= rot && rot < 22.5) 
+        {
             return PlayerDirection.NORTH;
-        } else if (22.5 <= rot && rot < 67.5) {
+        }
+        else if (22.5 <= rot && rot < 67.5)
+        {
             return PlayerDirection.NORTH_EAST;
-        } else if (67.5 <= rot && rot < 112.5) {
+        } 
+        else if (67.5 <= rot && rot < 112.5)
+        {
             return PlayerDirection.EAST;
-        } else if (112.5 <= rot && rot < 157.5) {
+        } 
+        else if (112.5 <= rot && rot < 157.5)
+        {
             return PlayerDirection.SOUTH_EAST;
-        } else if (157.5 <= rot && rot < 202.5) {
+        } 
+        else if (157.5 <= rot && rot < 202.5)
+        {
             return PlayerDirection.SOUTH;
-        } else if (202.5 <= rot && rot < 247.5) {
+        } 
+        else if (202.5 <= rot && rot < 247.5)
+        {
             return PlayerDirection.SOUTH_WEST;
-        } else if (247.5 <= rot && rot < 292.5) {
+        }
+        else if (247.5 <= rot && rot < 292.5) 
+        {
             return PlayerDirection.WEST;
-        } else if (292.5 <= rot && rot < 337.5) {
+        }
+        else if (292.5 <= rot && rot < 337.5)
+        {
             return PlayerDirection.NORTH_WEST;
-        } else if (337.5 <= rot && rot < 360.0) {
+        } 
+        else if (337.5 <= rot && rot < 360.0) 
+        {
             return PlayerDirection.NORTH;
-        } else {
+        }
+        else 
+        {
             return null;
         }
     }
@@ -404,7 +425,8 @@ public class weathercontrol extends JavaPlugin
      * Direction.
      * 
      */
-    public enum PlayerDirection {
+    public enum PlayerDirection
+    {
         NORTH(new Vector(-1, 0, 0), new Vector(0, 0, 1), true),
         NORTH_EAST((new Vector(-1, 0, -1)).normalize(), (new Vector(-1, 0, 1)).normalize(), false),
         EAST(new Vector(0, 0, -1), new Vector(-1, 0, 0), true),
@@ -418,21 +440,25 @@ public class weathercontrol extends JavaPlugin
         private Vector leftDir;
         private boolean isOrthogonal;
         
-        PlayerDirection(Vector vec, Vector leftDir, boolean isOrthogonal) {
+        PlayerDirection(Vector vec, Vector leftDir, boolean isOrthogonal)
+        {
             this.dir = vec;
             this.leftDir = leftDir;
             this.isOrthogonal = isOrthogonal;
         }
         
-        public Vector vector() {
+        public Vector vector()
+        {
             return dir;
         }
         
-        public Vector leftVector() {
+        public Vector leftVector()
+        {
             return leftDir;
         }
         
-        public boolean isOrthogonal() {
+        public boolean isOrthogonal() 
+        {
             return isOrthogonal;
         }
     }
