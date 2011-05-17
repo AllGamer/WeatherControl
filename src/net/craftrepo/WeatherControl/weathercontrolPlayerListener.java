@@ -34,7 +34,8 @@ public class weathercontrolPlayerListener extends PlayerListener
 			Action action = event.getAction();
 			if(action == Action.RIGHT_CLICK_AIR || action == Action.RIGHT_CLICK_BLOCK)
 			{
-				int wandid = 278;
+				//Made it so that you can have several "magic wand" instead of just one.
+				/*int wandid = 278;
 				weathercontrol.config.load();
 				if (weathercontrol.config.getProperty("WandID") != null)
 				{
@@ -46,9 +47,9 @@ public class weathercontrolPlayerListener extends PlayerListener
 					{
 						log.severe(weathercontrol.logPrefix + " Please fix your WandID int plugins/WeatherControl/config.yml");
 					}
-				}
+				}*/
 				if(event.getItem()!=null)
-					if(event.getItem().getTypeId() == wandid)
+					if(plugin.WandId.contains(event.getItem().getTypeId()))
 					{
 						if (plugin.lightningwand.containsKey(event.getPlayer()))
 						{

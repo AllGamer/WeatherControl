@@ -40,6 +40,7 @@ public class weathercontrol extends JavaPlugin
 	private weathercontrolConfiguration confSetup;
 	public static Configuration config;
 	public static String id = null;
+	public Set<Integer> WandId = new HashSet<Integer>();
 	public HashMap<Integer,Integer> idweight = new HashMap<Integer, Integer>();
 
 	public void configInit()
@@ -55,14 +56,19 @@ public class weathercontrol extends JavaPlugin
 		configInit();
 		confSetup.setupConfigs();
 		config.load();
-		List<Object> x = config.getList("BlockWeight");
-		for(Object s: x)
+		List<Object> Blocks = config.getList("BlockWeight");
+		for(Object s: Blocks)
 		{
 			String s2 = s.toString();
 			/**
 			 * I take out the first string befor the space and the string after the space and map it to the hash map.
 			 */
 			idweight.put(Integer.parseInt(s2.substring(0, s2.indexOf(' ')-1)),Integer.parseInt(s2.substring(s2.indexOf(' ')+1)));
+		}
+		List<Object> Wands = config.getList("WandID");
+		for(Object s: Wands)
+		{
+			WandId.add(Integer.parseInt(s.toString()));
 		}
 		getServer().getPluginManager().registerEvent(Event.Type.PLAYER_INTERACT, new weathercontrolPlayerListener(this), Event.Priority.Low, this);
 		getServer().getPluginManager().registerEvent(Event.Type.ENTITY_DAMAGE, new weathercontrolEntityDamage(this), Event.Priority.Low, this);
