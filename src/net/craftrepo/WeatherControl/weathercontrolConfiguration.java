@@ -54,8 +54,7 @@ public class weathercontrolConfiguration
 					out.write("\n");
 					out.write("#This is the id for the lightnignpick wand. It defaults to 278 (diamond pick). It will fall to default if blank.\n");
 					out.write("#Set this to the id you want to use.\n");
-					out.write("WandID:\n");
-					out.write(" - 278\n");
+					out.write("WandID: 278\n");
 					out.close();
 					fstream.close();
 					log.info(logPrefix + " Make sure to edit your config file!");
